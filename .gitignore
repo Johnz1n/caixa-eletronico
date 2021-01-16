@@ -1,0 +1,9 @@
+/vendor
+/.vendor-new
+./vscode
+*.exe
+.env
+caixa-eletronico
+gin-bin.exe~
+gin-bin
+/db-data

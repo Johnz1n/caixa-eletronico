@@ -1,0 +1,6 @@
+/db-data
+/vendor
+/.vendor-new
+*.exe
+.env
+caixa-eletronico

@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "2db4b61b-dc9c-4579-a328-97503cee7a8e",
+		"name": "caixa-eletronico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData).to.have.property(\"contas\");\r",
+									"    pm.expect(jsonData.contas).length(1);\r",
+									"    pm.environment.set(\"usuario_id\", jsonData.id );\r",
+									"    pm.environment.set(\"conta_id\", jsonData.contas[0].id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome Teste\",\r\n    \"dataNascimento\": \"2006-01-02T15:04:05Z\",\r\n    \"cpf\": \"12345678900\",\r\n    \"contas\": [\r\n        {\r\n            \"tipoConta\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData).to.have.property(\"contas\");\r",
+									"    pm.expect(jsonData.contas).length(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome Teste\",\r\n    \"dataNascimento\": \"2006-01-02T15:04:05Z\",\r\n    \"cpf\": \"12345678900\",\r\n    \"contas\": [\r\n        {\r\n            \"tipoConta\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/{{usuario_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{usuario_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData).to.have.property(\"contas\");\r",
+									"    pm.expect(jsonData.contas).length(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome Teste update\",\r\n    \"dataNascimento\": \"2006-01-02T15:04:05Z\",\r\n    \"cpf\": \"12345678900\",\r\n    \"contas\": [\r\n        {\r\n            \"id\": 1,\r\n            \"usuarioID\": 1,\r\n            \"saldo\": 0,\r\n            \"tipoConta\": 1\r\n        },\r\n        {\r\n            \"tipoConta\": 2\r\n        }\r\n    ],\r\n    \"createdAt\": \"2021-01-16T15:55:41.139Z\",\r\n    \"updatedAt\": \"2021-01-16T15:55:41.139Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/{{usuario_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{usuario_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"List\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData[0]).to.have.property(\"contas\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome Teste\",\r\n    \"dataNascimento\": \"2006-01-02T15:04:05Z\",\r\n    \"cpf\": \"12345678900\",\r\n    \"contas\": [\r\n        {\r\n            \"tipoConta\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\").equals(\"Successfully deleted\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome Teste\",\r\n    \"dataNascimento\": \"2006-01-02T15:04:05Z\",\r\n    \"cpf\": \"12345678900\",\r\n    \"contas\": [\r\n        {\r\n            \"tipoConta\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/{{usuario_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{usuario_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conta",
+			"item": [
+				{
+					"name": "CreateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"CreateUser\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData).to.have.property(\"contas\");\r",
+									"    pm.expect(jsonData.contas).length(1);\r",
+									"    pm.environment.set(\"usuario_id\", jsonData.id );\r",
+									"    pm.environment.set(\"conta_id\", jsonData.contas[0].id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome Teste\",\r\n    \"dataNascimento\": \"2006-01-02T15:04:05Z\",\r\n    \"cpf\": \"12345678900\",\r\n    \"contas\": [\r\n        {\r\n            \"tipoConta\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deposit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deposit\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\").equals(\"Successfully deposited\");\r",
+									"    pm.expect(jsonData).to.have.property(\"conta\");\r",
+									"    pm.expect(jsonData.conta).to.have.property(\"saldo\").equals(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": {{usuario_id}},\r\n    \"idConta\": {{conta_id}},\r\n    \"valor\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/deposit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sacar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Sacar\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\").equals(\"Successfully withdrawn\");\r",
+									"    pm.expect(jsonData).to.have.property(\"conta\");\r",
+									"    pm.expect(jsonData).to.have.property(\"notas\");\r",
+									"    notas = jsonData.notas;\r",
+									"    pm.expect(notas).length(3);\r",
+									"    pm.expect(jsonData.conta).to.have.property(\"saldo\").equals(10);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": {{usuario_id}},\r\n    \"idConta\": {{conta_id}},\r\n    \"valor\": 390\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/withdraw",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SacarSemSaldo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"SacarSemSaldo\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"error\").equals(\"Saldo insuficiente\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": {{usuario_id}},\r\n    \"idConta\": {{conta_id}},\r\n    \"valor\": 390\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/withdraw",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"DeleteUser\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"message\").equals(\"Successfully deleted\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome Teste\",\r\n    \"dataNascimento\": \"2006-01-02T15:04:05Z\",\r\n    \"cpf\": \"12345678900\",\r\n    \"contas\": [\r\n        {\r\n            \"tipoConta\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/{{usuario_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{usuario_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

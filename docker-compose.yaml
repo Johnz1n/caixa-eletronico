@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+  shared-network:
+    driver: bridge
+
+services:
+  api:
+    build:
+      dockerfile: ./dockerfile
+      context: .
+    container_name: api
+    ports:
+      - 8080:8080
+    networks:
+      - shared-network
+    image: golang
+    environment:
+      - DATABASE_USER=caixa-eletronico
+      - DATABASE_PASSWORD=caixa-eletronico
+      - DATABASE_HOST=mysql
+      - DATABASE_NAME=caixa-eletronico
+    depends_on:
+      - mysql
+      
+  mysql:
+    container_name: mysql
+    ports:
+      - 3306:3306
+    networks:
+      - shared-network
+    image: mysql:8
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: caixa-eletronico
+      MYSQL_DATABASE: caixa-eletronico
+      MYSQL_USER: caixa-eletronico
+      MYSQL_PASSWORD: caixa-eletronico
